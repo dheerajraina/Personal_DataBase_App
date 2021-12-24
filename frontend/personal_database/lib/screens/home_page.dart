@@ -4,6 +4,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:personal_database/screens/add_new_contact.dart';
 import 'package:personal_database/screens/contact_details_page.dart';
 
 
@@ -72,10 +73,22 @@ class _HomePageState extends State<HomePage> {
                  children: [
                    Padding(padding: EdgeInsets.only(top: 30)),
               ListTile(
-                trailing: Icon(
+                trailing: IconButton(
+                  onPressed: (){
+                    // print("Add");
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context)=> NewContact())
+                      );
+                  }, 
+                  icon: Icon(
+                  
                   Icons.add,
                   color: Colors.blue,
                   size: MediaQuery.of(context).size.width * 0.07,
+                
+                  ),
                   ),
                   // tileColor: Colors.amber,
               ),
@@ -164,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                   width: 20,
               ),
                     CircleAvatar(
-                  backgroundImage: NetworkImage("https://c4.wallpaperflare.com/wallpaper/808/87/756/son-goku-dragon-ball-ultra-instinct-dragon-ball-super-white-hair-hd-wallpaper-preview.jpg"),
+                  backgroundImage: NetworkImage("https://wegotthiscovered.com/wp-content/uploads/2021/07/Ultra-Instinct-Goku.jpg"),
                   radius: MediaQuery.of(context).size.width * 0.09,
                 ),
                 SizedBox(
@@ -248,11 +261,12 @@ class _HomePageState extends State<HomePage> {
                                 title: Text(_contacts[index]['name']),
                                  onTap: (){
 
-                                  // Navigator.push(
-                                  //   context, 
-                                  //   MaterialPageRoute(
-                                  //     builder: (_) => ContactDetails(_contacts[index]['name'],_contacts[index]['email'],_contacts[index]['phone']),
-                                  //   ),);
+                                  Navigator.push(
+                                    context, 
+                                    MaterialPageRoute(
+                                      builder: (context) => ContactDetails() 
+                                      )
+                                    );
                                    
                                  },
                                 
