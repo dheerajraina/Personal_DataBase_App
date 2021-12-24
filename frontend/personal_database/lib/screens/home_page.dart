@@ -19,7 +19,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   
   List _contacts=[];
-  
+  List searchResults=[];
+  bool _isSearching=false;
+
   String _iniApha='';
   bool diffAlpha=false;
   //loading data from local json file 
@@ -47,6 +49,20 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     readJson();
+  }
+
+  searchFunction(val){
+    String data=val;
+    searchResults.clear();
+    for(int i=0;i<_contacts.length;i++){
+       String  contact=_contacts[i]['name'];
+       if (contact.toLowerCase().contains(data.toLowerCase())){
+          searchResults.add(_contacts[i]);
+       }
+    }
+    // setState(() {
+    //   _isSearching=false;
+    // });
   }
   @override
   Widget build(BuildContext context) {
@@ -127,7 +143,10 @@ class _HomePageState extends State<HomePage> {
                 height: 40,
                 child: CupertinoSearchTextField(
                       onChanged: (val){
-                        // print(val); 
+                        searchFunction(val) ;
+                        setState(() {
+                          _isSearching=true;
+                        });
                       },
                       onSubmitted: (val){
                         print(val);
@@ -207,7 +226,9 @@ class _HomePageState extends State<HomePage> {
     
              _contacts.isNotEmpty ?
             Expanded(
-                    child: ListView.builder(
+                    
+                    child:!_isSearching
+                    ? ListView.builder(
                       itemCount: _contacts.length,
                       itemBuilder: (context,index){
                         // print(index);
@@ -259,6 +280,76 @@ class _HomePageState extends State<HomePage> {
                               // color: Colors.amber,
                               child: ListTile(
                                 title: Text(_contacts[index]['name']),
+                                 onTap: (){
+
+                                  Navigator.push(
+                                    context, 
+                                    MaterialPageRoute(
+                                      builder: (context) => ContactDetails() 
+                                      )
+                                    );
+                                   
+                                 },
+                                
+                              ),
+                            ),
+                            Padding(padding: EdgeInsets.only(bottom: 8)),
+                            // Divider(),
+                          ],
+                        );
+                      }
+                      ):ListView.builder(
+                      itemCount: searchResults.length,
+                      itemBuilder: (context,index){
+                        // print(index);
+                        if(index!=0 && _iniApha!=searchResults[index]['name'][0]){
+                            _iniApha=searchResults[index]['name'][0];
+
+                            diffAlpha=true;
+                        }
+                        else{
+                          if(index==0){
+                                _iniApha=searchResults[index]['name'][0];
+                                diffAlpha=true;
+                          }
+                          else{
+                            diffAlpha=false;
+                          }
+                        }
+                            
+          
+                        return Column(
+                          
+                          children: [
+
+                            diffAlpha==true
+                            ? Container(
+                              width: MediaQuery.of(context).size.width * 1,
+                              height: MediaQuery.of(context).size.width * 0.07,
+                              color: Colors.black12,
+                            child: Row(
+                              children:[
+                                SizedBox(
+                                  width: 20,
+
+                                ),
+                                Text(
+                                  _iniApha,
+                                  style: TextStyle(
+                                    // fontWeight:FontWeight.bold,
+                                    fontSize: MediaQuery.of(context).size.width * 0.046,
+                                  ),
+                                  ),
+                              ],
+                            ),
+
+                            )
+                            : Divider(),
+                            Container(
+                              height: 30,
+                              // color: Colors.amber,
+                              child: ListTile(
+                                title: Text(searchResults[index]['name']),
                                  onTap: (){
 
                                   Navigator.push(
