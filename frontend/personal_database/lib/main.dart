@@ -145,6 +145,7 @@ class MyApp extends StatelessWidget {
       // darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       home: HomePage(),
+      theme:  ThemeData.dark(),
     );
   }
 }
