@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:personal_database/screens/add_new_contact.dart';
 import 'package:personal_database/screens/contact_details_page.dart';
+import 'package:personal_database/screens/services/api_services.dart';
 
 
 
@@ -21,35 +22,58 @@ class _HomePageState extends State<HomePage> {
   List _contacts=[];
   List searchResults=[];
   bool _isSearching=false;
-
+  
   String _iniApha='';
   bool diffAlpha=false;
+
+
+  late Future <List> futureContacts;
+  @override
+  
+  void initState(){
+    super.initState();
+    String view="contact-list/";
+     futureContacts=APIService.instance.fetchContacts(view: view);
+   toList();
+  }
+  
+  void toList()async{
+    List temp=await futureContacts;
+
+    setState(() {
+      _contacts=temp;
+    });
+    // print(_contacts[0]['name']);
+  }
+
+  
+
   //loading data from local json file 
 
 
-  Future<void> readJson() async{
-    final String response= await rootBundle.loadString('lib/assets/contacts_data.json');
-    if(response.isNotEmpty){
-        final data =await json.decode(response);
+  // Future<void> readJson() async{
+  //   final String response= await rootBundle.loadString('lib/assets/contacts_data.json');
+  //   if(response.isNotEmpty){
+  //       final data =await json.decode(response);
 
-         setState(() {
-      _contacts=data['contacts'];
+  //        setState(() {
+  //     _contacts=data['contacts'];
 
-    });
-    }
+  //   });
+  //   }
     
 
    
     
-  }
+  // }
 
 
-  @override
-  void initState(){
-    super.initState();
+  // @override
+  // void initState(){
+  //   super.initState();
 
-    readJson();
-  }
+  //   readJson();
+  // }
 
   searchFunction(val){
     String data=val;
@@ -142,6 +166,9 @@ class _HomePageState extends State<HomePage> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 height: 40,
                 child: CupertinoSearchTextField(
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                       onChanged: (val){
                         searchFunction(val) ;
                         setState(() {
@@ -153,10 +180,14 @@ class _HomePageState extends State<HomePage> {
                       },
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.elliptical(10, 10)),
-                        color: Colors.black12,
+                        color: Colors.black38,
+                        
+                         
+
                         
                       ),
                     // padding: EdgeInsets.only(left:),
+                    
                 ),
               ),
                 SizedBox(
