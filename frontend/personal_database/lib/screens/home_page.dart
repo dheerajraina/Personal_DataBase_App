@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:personal_database/screens/add_new_contact.dart';
 import 'package:personal_database/screens/contact_details_page.dart';
-import 'package:personal_database/screens/services/api_services.dart';
+import 'package:personal_database/services/api_services.dart';
 
 
 
