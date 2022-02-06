@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
     //sorting the map of contacts according to name (alphabetically)alphabetical
     _contacts.sort((a,b)=>a['name'].compareTo(b['name']));
     
-
+    var size=MediaQuery.of(context).size;
     // _contacts.forEach(
     //   (contact)=> print(contact['name'][0])
     // );
@@ -176,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                         });
                       },
                       onSubmitted: (val){
-                        print(val);
+                        // print(val);
                       },
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.elliptical(10, 10)),
@@ -230,26 +230,25 @@ class _HomePageState extends State<HomePage> {
                   backgroundImage: NetworkImage("https://wegotthiscovered.com/wp-content/uploads/2021/07/Ultra-Instinct-Goku.jpg"),
                   radius: MediaQuery.of(context).size.width * 0.09,
                 ),
-                SizedBox(
-                child:DecoratedBox(
-                  decoration:BoxDecoration(
-                  // color: Colors.black,
-                ),
                 
-                  ),
-                  height: 30,
-                  width: 20,
-              ),
+                SizedBox(
 
-              Card(
-                child:Text(
-                  "Dheeraj Raina",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  ),
-              ),
+                  child: DecoratedBox(decoration: BoxDecoration(
+                    // color: Colors.red,
+                  ),),
+                      height:30,
+                      width: 20,
+                ),
+                    Card(
+
+                      child: Text(
+                        "Dheeraj Raina",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: size.width*0.05,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 

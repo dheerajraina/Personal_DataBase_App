@@ -9,7 +9,12 @@ class APIService{
 
   static final APIService instance= APIService._instantiate();
 
+// for mobile platforms
+
   final String _baseURL="http://10.0.2.2:8000/api/";
+
+// for web platform
+  // final String _baseURL="http://127.0.0.1:8000/api/";
 
   Future <List> fetchContacts({required String view}) async{
     // String attributes
